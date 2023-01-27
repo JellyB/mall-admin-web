@@ -1,31 +1,70 @@
 import { asyncRoutes, constantRoutes } from '@/router'
 
 /**
- * Use meta.role to determine if the current user has permission
- * @param roles
- * @param route
+ * 判断是否有权限访问该菜单
+ * @param menus 用户角色列表
+ * @param route 单个路由信息
  */
-function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
+function hasPermission(menus, route) {
+  if (route.name) {
+    const currentMenu = getMenu(route.name, menus)
+    if (currentMenu) {
+      // 设置菜单的标题、图标和可见性
+      if (currentMenu.title != null && currentMenu.title !== '') {
+        route.meta.title = currentMenu.title
+      }
+      if (currentMenu.icon != null && currentMenu.title !== '') {
+        route.meta.icon = currentMenu.icon
+      }
+      if (currentMenu.hidden != null) {
+        route.hidden = currentMenu.hidden !== 0
+      }
+      if (currentMenu.sort != null && currentMenu.sort !== '') {
+        route.sort = currentMenu.sort
+      }
+      return true
+    } else {
+      route.sort = 0
+      if (route.hidden !== undefined && route.hidden === true) {
+        route.sort = -1
+        return true
+      } else {
+        return false
+      }
+    }
   } else {
     return true
   }
 }
 
 /**
- * Filter asynchronous routing tables by recursion
- * @param routes asyncRoutes
- * @param roles
+ * 根据路由名称获取菜单
+ * @param name 路由名称
+ * @param menus 菜单列表
  */
-export function filterAsyncRoutes(routes, roles) {
+function getMenu(name, menus) {
+  for (let i = 0; i < menus.length; i++) {
+    const menu = menus[i]
+    if (name === menu.name) {
+      return menu
+    }
+  }
+  return null
+}
+
+/**
+ * Filter asynchronous routing tables by recursion
+ * @param routes asyncRoutes 系统配置的权限
+ * @param menus 用户菜单
+ */
+export function filterAsyncRoutes(routes, menus) {
   const res = []
 
   routes.forEach(route => {
     const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
+    if (hasPermission(menus, tmp)) {
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
+        tmp.children = filterAsyncRoutes(tmp.children, menus)
       }
       res.push(tmp)
     }
@@ -35,7 +74,7 @@ export function filterAsyncRoutes(routes, roles) {
 }
 
 const state = {
-  routes: [],
+  routes: constantRoutes,
   addRoutes: []
 }
 
@@ -46,15 +85,23 @@ const mutations = {
   }
 }
 
+/**
+ * data 用户菜单
+ * 通过用户菜单生成用户路由列表
+ */
 const actions = {
-  generateRoutes({ commit }, roles) {
+  generateRoutes({ commit }, data) {
+    const { roles, menus } = data
     return new Promise(resolve => {
       let accessedRoutes
-      if (roles.includes('admin')) {
+      if (roles.includes('超级管理员')) {
+        console.log('超级管理员')
         accessedRoutes = asyncRoutes || []
       } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+        console.log('普通用户')
+        accessedRoutes = filterAsyncRoutes(asyncRoutes, menus)
       }
+      console.log('accessedRoutes', accessedRoutes)
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })

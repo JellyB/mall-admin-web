@@ -1,38 +1,78 @@
 import request from '@/utils/request'
 
-export function getRoutes() {
+export function fetchList(params) {
   return request({
-    url: '/vue-element-admin/routes',
-    method: 'get'
+    url: '/mall-admin/role/list',
+    method: 'get',
+    params: params
   })
 }
 
-export function getRoles() {
+export function createRole(data) {
   return request({
-    url: '/vue-element-admin/roles',
-    method: 'get'
-  })
-}
-
-export function addRole(data) {
-  return request({
-    url: '/vue-element-admin/role',
+    url: '/mall-admin/role/create',
     method: 'post',
-    data
+    data: data
   })
 }
 
 export function updateRole(id, data) {
   return request({
-    url: `/vue-element-admin/role/${id}`,
-    method: 'put',
-    data
+    url: '/mall-admin/role/update/' + id,
+    method: 'post',
+    data: data
   })
 }
 
-export function deleteRole(id) {
+export function updateStatus(id, params) {
   return request({
-    url: `/vue-element-admin/role/${id}`,
-    method: 'delete'
+    url: '/mall-admin/role/updateStatus/' + id,
+    method: 'post',
+    params: params
+  })
+}
+
+export function deleteRole(data) {
+  return request({
+    url: '/mall-admin/role/delete',
+    method: 'post',
+    data: data
+  })
+}
+
+export function fetchAllRoleList() {
+  return request({
+    url: '/mall-admin/role/listAll',
+    method: 'get'
+  })
+}
+
+export function listMenuByRole(roleId) {
+  return request({
+    url: '/mall-admin/role/listMenu/' + roleId,
+    method: 'get'
+  })
+}
+
+export function listResourceByRole(roleId) {
+  return request({
+    url: '/mall-admin/role/listResource/' + roleId,
+    method: 'get'
+  })
+}
+
+export function allocMenu(data) {
+  return request({
+    url: '/mall-admin/role/allocMenu',
+    method: 'post',
+    data: data
+  })
+}
+
+export function allocResource(data) {
+  return request({
+    url: '/mall-admin/role/allocResource',
+    method: 'post',
+    data: data
   })
 }
