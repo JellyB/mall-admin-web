@@ -3,7 +3,8 @@
 ### 1. 下载代码到本地
 
 ```js
-git clone git push --all https://coding.jd.com/i18n-dependency/user-monitor-static.git user-monitor-static
+git clone git push --all https://github.com/JellyB/mall-monitor.git
+user-monitor-static
 ```
 
 ### 2. 安装依赖
