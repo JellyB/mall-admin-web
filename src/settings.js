@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'user-monitor',
+  title: 'mall-admin-web',
 
   /**
    * @type {boolean} true | false
