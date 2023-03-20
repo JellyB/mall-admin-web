@@ -1,8 +1,8 @@
 {
-  "name": "vue-element-admin",
+  "name": "mall-admin-admin",
   "version": "4.4.0",
-  "description": "A magical vue admin. An out-of-box UI solution for enterprise applications. Newest development stack of vue. Lots of awesome features",
-  "author": "Pan <panfree23@gmail.com>",
+  "description": "mall后台管理前端",
+  "author": "JellyB <jelly_b@126.com>",
   "scripts": {
     "dev": "vue-cli-service serve",
     "lint": "eslint --ext .js,.vue src",
@@ -39,6 +39,7 @@
     "vue-router": "3.0.2",
     "vue-splitpane": "1.0.4",
     "vuedraggable": "2.20.0",
+    "v-distpicker": "^1.0.20",
     "vuex": "3.1.0",
     "xlsx": "0.14.1"
   },
@@ -49,6 +50,8 @@
     "@vue/cli-service": "4.4.4",
     "@vue/test-utils": "1.0.0-beta.29",
     "autoprefixer": "9.5.1",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^7.1.1",
     "babel-eslint": "10.1.0",
     "babel-jest": "23.6.0",
     "babel-plugin-dynamic-import-node": "2.3.3",

@@ -79,8 +79,7 @@ $ sudo rm -rf node_modules package-lock.json && npm install
 ## 1. 下载代码到本地
 
 ```js
-git clone git push --all https://github.com/JellyB/mall-monitor.git
-user-monitor-static
+git clone git push --all https://github.com/JellyB/mall-admin-web.git
 ```
 
 ## 2. 安装依赖
@@ -255,7 +254,7 @@ import nestedRouter from './modules/nested'
 
 - title：站点标题，进入某个页面后，格式为：
 ```js
-  title: 'user-monitor',
+  title: 'mall-admin-web',
 ```
 - 
 - showSettings：是否显示右侧悬浮配置按钮
@@ -286,3 +285,23 @@ import nestedRouter from './modules/nested'
 - settings.js：全局配置
 - main.js：全局入口文件
 - App.vue：全局入口组件
+
+## 启动
+
+添加cors跨域白名单，修改mall-gateway GlobalCorsConfig 配置
+
+```java
+@Bean
+    public CorsWebFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(Arrays.asList("http://localhost:9091"));
+        config.addAllowedMethod("*");
+        config.addAllowedOriginPattern("*");
+        config.addAllowedHeader("*");
+        config.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsWebFilter(source);
+    }
+```

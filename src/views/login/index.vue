@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Monitor</h3>
+        <h3 class="title">admin-web</h3>
       </div>
 
       <el-form-item prop="username">
@@ -73,7 +73,7 @@ export default {
     }
     return {
       loginForm: {
-        username: 'monitor',
+        username: 'admin',
         password: '123456'
       },
       loginRules: {
