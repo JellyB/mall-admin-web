@@ -50,6 +50,21 @@ export const constantRoutes = [
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
     ]
+  },
+  {
+    path: '/log',
+    name: 'log',
+    redirect: '/log/list',
+    component: Layout,
+    meta: { title: '日志', icon: 'log' },
+    children: [
+      {
+        path: '/log/list',
+        name: 'logList',
+        component: () => import('../views/log/index.vue'),
+        meta: { title: '日志列表', icon: 'log' }
+      }
+    ]
   }
 ]
 
