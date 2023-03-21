@@ -45,7 +45,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/views/service/index'),
         name: 'Dashboard',
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
@@ -59,49 +59,22 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/system',
-    name: 'system',
-    redirect: '/system/resource',
+    path: '/service',
+    name: 'service',
+    redirect: '/service/monitor',
     component: Layout,
-    meta: { title: '系统管理', icon: 'documentation' },
+    meta: { title: '客服', icon: 'service' },
     children: [
       {
-        path: '/system/resource',
-        name: 'menuManagement',
-        component: () => import('@/views/system/resource'),
-        meta: { title: '资源管理', icon: 'edit' }
-      },
-      {
-        path: '/system/role',
-        name: 'roleManagement',
-        component: () => import('@/views/system/role'),
-        meta: { title: '角色管理', icon: 'edit' }
-      },
-      {
-        path: '/system/user',
-        name: 'userManagement',
-        component: () => import('@/views/system/user'),
-        meta: { title: '用户管理', icon: 'edit' }
-      }
-    ]
-  },
-  {
-    path: '/business',
-    name: 'business',
-    redirect: '/business/monitor',
-    component: Layout,
-    meta: { title: '业务工具', icon: 'tools' },
-    children: [
-      {
-        path: '/business/monitor',
-        name: 'monitorManagement',
-        component: () => import('../views/business/monitor.vue'),
-        meta: { title: '调试工具', icon: 'edit' }
+        path: '/service/monitor',
+        name: 'serviceManagement',
+        component: () => import('../views/service/monitor.vue'),
+        meta: { title: '调试工具', icon: 'debug' }
       }, {
-        path: '/business/cache',
+        path: '/service/cache',
         name: 'cacheManagement',
-        component: () => import('../views/business/monitor.vue'),
-        meta: { title: '缓存管理', icon: 'edit' }
+        component: () => import('../views/service/monitor.vue'),
+        meta: { title: '缓存管理', icon: 'cache' }
       }
     ]
 
